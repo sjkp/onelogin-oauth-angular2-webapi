@@ -2,6 +2,18 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.1.
 
+The folder WebAPI contains a backend that shows how to create an API that only can be called by users that can present a JWT token from the OneLogin IdP. 
+
+To test the app with onelogin a public url must be used. Ngrok.io can be used to setup a tunnel to localhost. 
+
+When doing so be sure to run `ng serve --public d06c716a.ngrok.io` 
+
+### Links
+How to setup OneLogin for OpenIdConnect https://developers.onelogin.com/openid-connect/connect-to-onelogin 
+OneLogin openid connect configuration (replace dg-dev with your domain) https://dg-dev.onelogin.com/oidc/.well-known/openid-configuration
+Angular2 Library used for OpenIDConnect/OAuth2: https://github.com/manfredsteyer/angular-oauth2-oidc
+Backend is the sample from Auth0 https://auth0.com/docs/quickstart/backend/webapi-owin
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
