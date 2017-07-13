@@ -6,13 +6,28 @@ The folder WebAPI contains a backend that shows how to create an API that only c
 
 To test the app with onelogin a public url must be used. Ngrok.io can be used to setup a tunnel to localhost. 
 
-When doing so be sure to run `ng serve --public d06c716a.ngrok.io` 
+When doing so be sure to run `ng serve --public d06c716a.ngrok.io`
+
+To proxy to backend service hosted in IISExpress user `ng serve --public d06c716a.ngrok.io --proxy-config proxy.conf.json` ensure that the IISExpress site answers on the host name. 
+
+``` xml
+ <site name="WebApi" id="2">
+    <application path="/" applicationPool="Clr4IntegratedAppPool">
+        <virtualDirectory path="/" physicalPath="J:\Projects\onelogin-oauth\WebApi\WebApi" />
+    </application>
+    <bindings>
+        <binding protocol="http" bindingInformation="*:58105:localhost" />
+        <binding protocol="http" bindingInformation="*:58105:d06c716a.ngrok.io" /> <!-- this is the important line -->
+    </bindings>
+</site>
+```
+
 
 ### Links
-How to setup OneLogin for OpenIdConnect https://developers.onelogin.com/openid-connect/connect-to-onelogin 
-OneLogin openid connect configuration (replace dg-dev with your domain) https://dg-dev.onelogin.com/oidc/.well-known/openid-configuration
-Angular2 Library used for OpenIDConnect/OAuth2: https://github.com/manfredsteyer/angular-oauth2-oidc
-Backend is the sample from Auth0 https://auth0.com/docs/quickstart/backend/webapi-owin
+* How to setup OneLogin for OpenIdConnect https://developers.onelogin.com/openid-connect/connect-to-onelogin 
+* OneLogin openid connect configuration (replace dg-dev with your domain) https://dg-dev.onelogin.com/oidc/.well-known/openid-configuration
+* Angular2 Library used for OpenIDConnect/OAuth2: https://github.com/manfredsteyer/angular-oauth2-oidc
+* Backend is the sample from Auth0 https://auth0.com/docs/quickstart/backend/webapi-owin
 
 ## Development server
 

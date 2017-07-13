@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { Response, Http, Headers} from '@angular/http';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class AppComponent {
   title = 'app';
-   constructor(private oauthService: OAuthService) {
+   constructor(private oauthService: OAuthService, private http: Http) {
 
       // URL of the SPA to redirect the user to after login
         this.oauthService.redirectUri = window.location.origin.endsWith('/') ?  window.location.origin :  window.location.origin + '/' ;
@@ -54,6 +55,20 @@ export class AppComponent {
     public accessToken() {
       console.log(this.oauthService.getAccessToken());
       console.log(this.oauthService.getIdToken());
+    }
+
+    public getData() {
+      this.title = "Getting some data";
+        this.http.get('/api/ping/secure', {
+          headers: new Headers({
+            "Authorization": "Bearer " + this.oauthService.getIdToken()
+          })
+        }).subscribe(data => {
+          var response = data.json();
+            console.log(response);
+            //
+            this.title = response.Message;
+        })
     }
     
     public get name() {
